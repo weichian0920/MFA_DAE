@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+#Author:Wei-Chien Wang
 import numpy as np
 import sys
 sys.path.append('./')
@@ -21,15 +23,17 @@ def ACT(act_f):
        print("Doesn't support {0} activation function".format(act_f))
 
 class Encoder(nn.Module):
-    """This function construct Encoder by fully-connected units.
+    """This function build Encoder based on fully-connected units.
     Arguments:
         model_dict: each encoder layer's parameters, including input feature_dim, layer's neurons number, and specified activation fucntion.
+        feature_dim: input feature dimension according to input frequency bins number.
+        encoder act: activation function of each layers
     """
     def __init__(self, model_dict=None, padding="same", args=None, logger=None):
         super(Encoder, self).__init__()
 
         self.model_dict = model_dict
-        self.feature_dim = self.model_dict['feature_range'][1] - self.model_dict['feature_range'][0]
+        self.feature_dim = self.model_dict['frequency_bins'][1] - self.model_dict['frequency_bins'][0]
         self.encoder_act = self.model_dict['encoder_act']
         self.encoder_layer = self.model_dict['encoder']
 
@@ -44,7 +48,6 @@ class Encoder(nn.Module):
         for i in range(0, len(self.encoder_layer)):
             out_planes = self.encoder_layer[i]
             layer = nn.Linear(in_planes, out_planes)
-
             in_planes = out_planes
             layers.append(layer)
             layers.append(ACT(self.encoder_act))
@@ -57,7 +60,12 @@ class Encoder(nn.Module):
 
 
 class Decoder(nn.Module):
-    ###
+    """This function build Decoder based on fully-connected units.
+    Arguments:
+        model_dict: each decoder layer's parameters, including input feature_dim, layer's neurons number, and specified activation fucntion.
+        feature_dim: input feature dimension according to input frequency bins number.
+        encoder act: activation function of each layers
+    """
     def __init__(self, model_dict, padding="same", args=None, logger=None):
         super(Decoder, self).__init__()
         self.model_dict = model_dict
@@ -75,7 +83,8 @@ class Decoder(nn.Module):
             out_planes = self.decoder_layer[i]
             layer= nn.Linear(in_planes, out_planes)
             layers.append(layer)
-            layers.append(ACT(self.decoder_act))
+            if i < len(self.decoder_layer)-1:
+                layers.append(ACT(self.decoder_act))
             in_planes = out_planes
 
         return nn.Sequential(*layers)
@@ -89,13 +98,16 @@ class Decoder(nn.Module):
 
 class autoencoder(nn.Module):
 
-    #deep convolutional autoencoder
+    """This function build Deep autoencoder based on encoder and decoder modules.
+    Arguments:
+        model_dict: each decoder layer's parameters, including input feature_dim, layer's neurons number, and specified activation fucntion.
+    """
 
     def __init__(self, model_dict=None, padding="same", args=None, logger=None):
         super(autoencoder, self).__init__()
         if model_dict==None:
             self.model_dict = {
-        "feature_range":[0, 257],
+        "frequency_bins":[0, 257],
         "encoder":[1024, 512, 256, 32],
         "decoder":[256, 512, 1024, 257],
         "encoder_act":"relu",
@@ -109,7 +121,7 @@ class autoencoder(nn.Module):
             logger('{}: {}'.format(k,v))
         logger('================================')
         
-        self.feature_dim = self.model_dict['feature_range'][1] - self.model_dict['feature_range'][0]
+        self.feature_dim = self.model_dict['frequency_bins'][1] - self.model_dict['frequency_bins'][0]
         self.encoder = Encoder(self.model_dict)
         #self.PC = PC()
         self.decoder = Decoder(self.model_dict)

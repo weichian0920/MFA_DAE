@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+#Author:Wei-Chien Wang
+
 import numpy as np
 import os
 import torch
@@ -19,11 +22,12 @@ def ACT(act_f):
        print("Doesn't support {0} activation function".format(act_f))
 
 class Encoder(nn.Module):
+    
     def __init__(self, model_dict=None, padding="same", args=None, logger=None):
         super(Encoder, self).__init__()
         self.model_dict = model_dict
         self.padding = padding
-        self.feature_dim = self.model_dict['feature_range'][1] - self.model_dict['feature_range'][0]
+        self.feature_dim = self.model_dict['frequency_bins'][1] - self.model_dict['frequency_bins'][0]
         self.encoder_act = self.model_dict['encoder_act']
         self.encoder_layer = self.model_dict['encoder']
         self.encoder_filter = self.model_dict['encoder_filter']
@@ -76,7 +80,7 @@ class Decoder(nn.Module):
         super(Decoder, self).__init__()
         self.model_dict = model_dict
         self.dense_l = self.model_dict['dense']
-        self.feature_dim = self.model_dict['feature_range'][1] - self.model_dict['feature_range'][0]
+        self.feature_dim = self.model_dict['frequency_bins'][1] - self.model_dict['frequency_bins'][0]
         self.decoder_act = self.model_dict['decoder_act']
         self.decoder_layer = self.model_dict['decoder']
         self.decoder_filter = self.model_dict['decoder_filter']
@@ -98,14 +102,12 @@ class Decoder(nn.Module):
             out_channels = self.decoder_layer[i]
             if i == (len(self.decoder_layer)-1):
                 decoder_layer = nn.Conv2d(in_channels, out_channels, kernel_size = (self.decoder_filter[i][0], self.decoder_filter[i][1]), stride = (1,1), padding = 0, bias = True)
-                print("last layer")
                 layers.append(decoder_layer)
             else:
                 decoder_layer = nn.ConvTranspose2d(in_channels, out_channels, kernel_size = (self.decoder_filter[i][0], self.decoder_filter[i][1]), stride=(1,1), padding = (0,1))
                 layers.append(decoder_layer)
                 layers.append(ACT(self.decoder_act))
             in_channels = out_channels
-
         return nn.Sequential(*layers)
 
     def forward(self, x):
@@ -129,7 +131,7 @@ class autoencoder(nn.Module):
         super(autoencoder, self).__init__()
         if model_dict==None:
             self.model_dict = {
-        "feature_range":[0, 257],
+        "frequency_bins":[0, 257],
         "encoder":[1024, 512, 256, 32],
         "decoder":[32, 256, 512, 1024, 1],
         "encoder_filter":[[1,3],[1,3],[1,3],[1,3]],
@@ -146,9 +148,8 @@ class autoencoder(nn.Module):
             logger('{}: {}'.format(k,v))
         logger('================================')
         """
-        self.feature_dim = self.model_dict['feature_range'][1] - self.model_dict['feature_range'][0]
+        self.feature_dim = self.model_dict['frequency_bins'][1] - self.model_dict['frequency_bins'][0]
         self.encoder = Encoder(self.model_dict)
-        #self.PC = PC()
         self.decoder = Decoder(self.model_dict)
 
     def forward(self, x):
@@ -161,7 +162,7 @@ if __name__=="__main__":
     x = torch.tensor(np.ones((10, 1, 1, 257))).float()
     print("input.shape", x.shape)
     model_dict = {
-        "feature_range":[0, 257],
+        "frequency_bins":[0, 257],
         "encoder":[1024, 512, 256, 32],
         "decoder":[32, 256, 512, 1024, 1],
         "encoder_filter":[[1,3],[1,3],[1,3],[1,3]],

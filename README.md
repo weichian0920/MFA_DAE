@@ -1,4 +1,4 @@
-### Blind Monaural Source Separation on Heart and Lung Sounds Based on Periodic-Coded Deep Autoencoder
+# Blind Monaural Source Separation on Heart and Lung Sounds Based on Periodic-Coded Deep Autoencoder
 <p align="center">
   <img src="https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/6221020/9248684/9167389/tsao1-3016831-large.gif" width="400" height="300"/>
   <img src="https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/6221020/9248684/9167389/tsao4-3016831-large.gif" width="400" height="300"/>
@@ -19,3 +19,17 @@ Auscultation is the most efficient way to diagnose cardiovascular and respirator
 
 ### How to run
 Scripts to reproduce the training and evaluation procedures discussed in the paper are located on scripts/.
+### Citation
+If you find the code helpful in your research, please do consider cite us!
+```bash
+@article{tsai2020blind,
+  title={Blind Monaural Source Separation on Heart and Lung Sounds Based on Periodic-Coded Deep Autoencoder},
+  author={Tsai, Kun-Hsi and Wang, Wei-Chien and Cheng, Chui-Hsuan and Tsai, Chan-Yen and Wang, Jou-Kou and Lin, Tzu-Hao and Fang, Shih-Hau and Chen, Li-Chin and Tsao, Yu},
+  journal={IEEE Journal of Biomedical and Health Informatics},
+  volume={24},
+  number={11},
+  pages={3203--3214},
+  year={2020},
+  publisher={IEEE}
+}
+```

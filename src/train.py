@@ -25,7 +25,9 @@ def train(train_loader, net=None, args=None, logger=None):
         optimizer = optim.SGD(net.parameters(), lr=args.lr)
     #loss function
     mse = nn.MSELoss()
-    train_scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, T_0=1, T_mult=1)
+    if args.CosineAnnealingWarmRestarts:
+        print("cos")
+        train_scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, T_0=1, T_mult=2)
 
     best_loss = 100
     old_file = 0
@@ -34,7 +36,7 @@ def train(train_loader, net=None, args=None, logger=None):
         avg_batch_loss = 0
         for batch_idx, data in enumerate(train_loader):
             if args.cuda:
-                data = data.cuda()
+                data = data.cuda().float()
             data = Variable(data)
             optimizer.zero_grad()
             output = net(data)  
@@ -54,10 +56,8 @@ def train(train_loader, net=None, args=None, logger=None):
                     old_file = new_file
             """
         new_file = os.path.join(args.logdir, 'latest.pth')
-        misc.model_save(net, new_file, old_file=old_file, verbose=True)
+        misc.model_save(net, new_file, old_file=old_file, verbose=False)
         old_file = new_file
         
         logger("epoch{0}:{1}".format(epoch, avg_batch_loss/(batch_idx)))
-
-if __name__=="__main__":
-    train_test()
+    return net

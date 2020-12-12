@@ -1,11 +1,9 @@
 ### Blind Monaural Source Separation on Heart and Lung Sounds Based on Periodic-Coded Deep Autoencoder
 <p align="center">
-  <img src="https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/6221020/9248684/9167389/tsao1-3016831-large.gif" width="400" height="250"/>
-  <img src="https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/6221020/9248684/9167389/tsao4-3016831-large.gif" width="400" height="250"/>
+  <img src="https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/6221020/9248684/9167389/tsao1-3016831-large.gif" width="400" height="300"/>
+  <img src="https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/6221020/9248684/9167389/tsao4-3016831-large.gif" width="400" height="300"/>
 </p>
-<p align="center">
-  <img src="https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/6221020/9248684/9167389/tsao4-3016831-large.gif" width="250" height="250"/>
-</p>
+
 
 ### Abstract
 Blind Monaural Source Separation on Heart and Lung Sounds Based on Periodic-Coded Deep Autoencoder

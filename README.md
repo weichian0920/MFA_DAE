@@ -7,12 +7,12 @@ This is the implementation of [Blind Monaural Source Separation on Heart and Lun
 </p>
 
 ### Requirements
-* librosa             0.6.2. 
-* torch               1.5.1
-* torchvision         0.6.0a0+35d732a
+* librosa             0.8.0. 
+* torch               1.7.0
+* torchvision         0.8.2
 * sklearn             0.0
-* numpy               1.16.1
-* scipy               1.2.1
+* numpy               1.19.5
+* scipy               1.6.0
 ### Dataset
 
 ### How to run

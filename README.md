@@ -1,6 +1,6 @@
 # Blind Monaural Source Separation on Heart and Lung Sounds Based on Periodic-Coded Deep Autoencoder
 ### Introduction
-This is the implementation of [Blind Monaural Source Separation on Heart and Lung Sounds Based on Periodic-Coded Deep Autoencoder](https://ieeexplore.ieee.org/document/9167389)
+This is the implementation of [Blind Monaural Source Separation on Heart and Lung Sounds Based on Periodic-Coded Deep Autoencoder](https://ieeexplore.ieee.org/document/9167389).
 <p align="center">
   <img src="https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/6221020/9248684/9167389/tsao1-3016831-large.gif" width="400" height="300"/>
   <img src="https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/6221020/9248684/9167389/tsao4-3016831-large.gif" width="400" height="300"/>

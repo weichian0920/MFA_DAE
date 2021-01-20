@@ -14,16 +14,13 @@ Contact:
        
 """
 import argparse
-import os
 import time
-from utils import misc, make_path
+from utils import misc
 import torch
-import torch.nn as nn
-import torch.optim as optim
 from torch.autograd import Variable
 from datetime import datetime
 import numpy as np
-from model import DAE_C, DAE_F, ST_DAE_C
+from model import DAE_C, DAE_F
 import train
 from source_separation import MFA
 from dataset.HLsep_dataloader import hl_dataloader, val_dataloader
@@ -62,7 +59,7 @@ args.cuda = torch.cuda.is_available()
 misc.logger.init(args.logdir, 'train_log_')
 logger = misc.logger.info
 
-starttime=time.time()
+starttime = time.time()
 current_time = datetime.now().strftime('%Y%m%d_%H%M')
 args.logdir = args.logdir + str(args.model_type) + "_" + str(current_time)
 
@@ -107,7 +104,6 @@ DAE_F_dict = {
 Model = {
     'DAE_C': DAE_C.autoencoder,
     'DAE_F': DAE_F.autoencoder,
-    'ST_DAE_C': ST_DAE_C.autoencoder,
 }
 
 model_dict = {
@@ -131,12 +127,12 @@ if args.cuda:
     torch.cuda.manual_seed(args.seed)
     net.cuda()
 
-if __name__=="__main__":
+if __name__ == "__main__":
 
     # data loader
     test_filelist = ["/home/lab001/weichian/MFA_DAE/src_pytorch/dataset/0_0.wav"]
     outdir = "{0}/test_".format(args.logdir)
-    train_loader = hl_dataloader(test_filelist, batch_size = args.batch_size, shuffle=True, num_workers=1, pin_memory=True, FFT_dict=FFT_dict, args=args)
+    train_loader = hl_dataloader(test_filelist, batch_size=args.batch_size, shuffle=True, num_workers=1, pin_memory=True, FFT_dict=FFT_dict, args=args)
     # train
     net = train.train(train_loader, net, args, logger)
     for batch_idx, data in enumerate(train_loader):

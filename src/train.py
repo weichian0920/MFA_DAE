@@ -12,18 +12,17 @@ from torch.autograd import Variable
 from utils import misc, make_path, signalprocess
 
 
-
 def train(train_loader, net=None, args=None, logger=None):
     best_acc, old_file = 0, None
     per_save_epoch = 30
-    #optimizer
+    # optimizer
     if args.optim=="RMSprop":
         optimizer = optim.RMSprop(net.parameters(), lr=args.lr)
     elif args.optim=="Adam":
         optimizer = optim.Adam(net.parameters(), lr=args.lr)
     else:
         optimizer = optim.SGD(net.parameters(), lr=args.lr)
-    #loss function
+    # loss function
     mse = nn.MSELoss()
     if args.CosineAnnealingWarmRestarts:
         print("cos")
@@ -31,7 +30,7 @@ def train(train_loader, net=None, args=None, logger=None):
 
     best_loss = 100
     old_file = 0
-    #start training
+    # start training
     for epoch in range(args.epochs):
         avg_batch_loss = 0
         for batch_idx, data in enumerate(train_loader):
@@ -44,17 +43,7 @@ def train(train_loader, net=None, args=None, logger=None):
             avg_batch_loss +=loss
             loss.backward()
             optimizer.step()
-            #train_scheduler.step(epoch+batch_idx/311)
-
-            ##validation
-            """
-            if batch_idx % args.log_interval == 0 and batch_idx > 0:
-                if loss>best_loss:
-                    new_file = os.path.join(args.logdir, 'best-{}.pth'.format(epoch))
-                    misc.model_save(model, new_file, old_file=old_file, verbose=True)
-                    best_loss = loss
-                    old_file = new_file
-            """
+            # train_scheduler.step(epoch+batch_idx/311)
         new_file = os.path.join(args.logdir, 'latest.pth')
         misc.model_save(net, new_file, old_file=old_file, verbose=False)
         old_file = new_file

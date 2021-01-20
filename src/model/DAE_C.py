@@ -7,6 +7,7 @@ import torch
 import torch.nn as nn
 import math
 
+
 def ACT(act_f):
    if(act_f=="relu"):
        return torch.nn.ReLU()
@@ -21,8 +22,10 @@ def ACT(act_f):
    else:
        print("Doesn't support {0} activation function".format(act_f))
 
+
 class Encoder(nn.Module):
-    
+
+
     def __init__(self, model_dict=None, padding="same", args=None, logger=None):
         super(Encoder, self).__init__()
         self.model_dict = model_dict
@@ -45,6 +48,7 @@ class Encoder(nn.Module):
                 self.dense_layer = nn.Linear(input_dim, self.dense_layer[0])
                 self.dense_act = ACT(self.encoder_act)
 
+
     def _make_layers(self):
 
         layers = []
@@ -63,10 +67,11 @@ class Encoder(nn.Module):
 
         return nn.Sequential(*layers)
 
+
     def forward(self, x):
+
         x = self.conv_layers(x)
         x = torch.reshape(x, (x.shape[0], -1))
-
         if(len(self.model_dict["dense"])!=0):
             x = self.dense_layer(x)
             x = self.dense_act(x)
@@ -89,6 +94,7 @@ class Decoder(nn.Module):
             self.dense_layer = nn.Linear(self.dense_l[0], self.feature_dim)
             self.dense_act = ACT(self.decoder_act)
 
+
     def _make_layers(self):
        
         layers = []
@@ -110,14 +116,15 @@ class Decoder(nn.Module):
             in_channels = out_channels
         return nn.Sequential(*layers)
 
+
     def forward(self, x):
+
         if len(self.dense_l) == 0: 
             x = torch.reshape(x, (-1, self.decoder_layer[0], 1, self.feature_dim))
         else:
             x = self.dense_layer(x)
             x = self.dense_act(x)
             x = torch.reshape(x, (-1, 1, 1, self.feature_dim))
-
         x = self.conv_layers(x)
 
         return x
@@ -125,42 +132,40 @@ class Decoder(nn.Module):
 
 class autoencoder(nn.Module):
 
-    #deep convolutional autoencoder
+    """
+    # deep convolutional autoencoder
+    """
 
     def __init__(self, model_dict=None, padding="same", args=None, logger=None):
         super(autoencoder, self).__init__()
         if model_dict==None:
             self.model_dict = {
-        "frequency_bins":[0, 257],
-        "encoder":[1024, 512, 256, 32],
-        "decoder":[32, 256, 512, 1024, 1],
-        "encoder_filter":[[1,3],[1,3],[1,3],[1,3]],
-        "decoder_filter":[[1,3],[1,3],[1,3],[1,3],[1,1]],
-        "encoder_act":"relu",
-        "decoder_act":"relu",
-        "dense":[16],
-             }
+                "frequency_bins": [0, 257],
+                "encoder": [1024, 512, 256, 32],
+                "decoder": [32, 256, 512, 1024, 1],
+                "encoder_filter": [[1, 3],[1, 3],[1, 3],[1, 3]],
+                "decoder_filter": [[1, 3],[1, 3],[1, 3],[1, 3],[1, 1]],
+                "encoder_act": "relu",
+                "decoder_act": "relu",
+                "dense": [16],
+                }
         else:
             self.model_dict = model_dict
-        """
-        logger('============model_dict==========')
-        for k,v in self.model_dict.items():
-            logger('{}: {}'.format(k,v))
-        logger('================================')
-        """
         self.feature_dim = self.model_dict['frequency_bins'][1] - self.model_dict['frequency_bins'][0]
         self.encoder = Encoder(self.model_dict)
         self.decoder = Decoder(self.model_dict)
 
+
     def forward(self, x):
+
         x = self.encoder(x)
         x = self.decoder(x)
+
         return x
 
 if __name__=="__main__":
     #####test phasea
     x = torch.tensor(np.ones((10, 1, 1, 257))).float()
-    print("input.shape", x.shape)
     model_dict = {
         "frequency_bins":[0, 257],
         "encoder":[1024, 512, 256, 32],

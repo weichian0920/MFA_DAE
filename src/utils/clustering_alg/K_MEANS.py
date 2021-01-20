@@ -1,7 +1,6 @@
 #/--coding:utf-8/
 #/author:Ethan Wang/
 
-from sklearn.cluster import k_means_
 from sklearn.metrics.pairwise import cosine_similarity, pairwise_distances
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans

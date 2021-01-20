@@ -7,14 +7,13 @@ import scipy.io.wavfile as wav
 
 
 class HL_dataset(Dataset):
+
+    
     def __init__(self, data_path_list, FFT_dict, args):
 
         self.data_path_list = data_path_list
         self.FFT_dict = FFT_dict
         self.args  = args
-        #self.name = name
-        #self.mode = mode
-
         for filepath in self.data_path_list:
             if args.data_feature=="lps":
                 spec, phase, mean, std = wav2lps(filepath, self.FFT_dict['FFTSize'],  self.FFT_dict['Hop_length'],  self.FFT_dict['Win_length'],  self.FFT_dict['normalize'])
@@ -26,11 +25,12 @@ class HL_dataset(Dataset):
             else:
                 y = wav_read(filepath)
                 self.samples = np.reshape(y, (-1,1,1,y.shape[0]))
-            
+
+
     def __getitem__(self, index):
 
-        #spec, _, mean, var = wav2lps(self.samples[index])
         return self.samples[index]
+
 
     def __len__(self):
 
@@ -49,12 +49,3 @@ def val_dataloader(filepath, FFT_dict):
     lps, phase, mean, std = wav2lps(filepath, FFT_dict['FFTSize'], FFT_dict['Hop_length'], FFT_dict['Win_length'], FFT_dict['normalize'])
 
     return np.array(lps), np.array(phase), mean, std
-
-if __name__=="__main__":
-    """
-    test phase
-    """
-    #data_path_list= ["/home/ethan/weichian/MFA_DAE/src_pytorch/dataset/0_0.wav", "/home/ethan/weichian/MFA_DAE/src_pytorch/dataset/0_0.wav"]
-    data_path_list= ["/home/ethan/weichian/MFA_DAE/src_pytorch/dataset/0_0.wav"]
-    train_loader = hl_dataloader(data_path_list)
-    lps, phase, mean, std = val_dataloader(data_path_list[0])

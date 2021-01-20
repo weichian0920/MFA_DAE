@@ -23,12 +23,15 @@ def ACT(act_f):
        print("Doesn't support {0} activation function".format(act_f))
 
 class Encoder(nn.Module):
+
     """This function build Encoder based on fully-connected units.
     Arguments:
         model_dict: each encoder layer's parameters, including input feature_dim, layer's neurons number, and specified activation fucntion.
         feature_dim: input feature dimension according to input frequency bins number.
         encoder act: activation function of each layers
     """
+
+
     def __init__(self, model_dict=None, padding="same", args=None, logger=None):
         super(Encoder, self).__init__()
 
@@ -39,6 +42,7 @@ class Encoder(nn.Module):
 
         self.padding = padding
         self.layers = self._make_layers()
+
 
     def _make_layers(self):
 
@@ -54,18 +58,21 @@ class Encoder(nn.Module):
 
         return nn.Sequential(*layers)
 
+
     def forward(self, x):
         x = self.layers(x)
         return x
 
 
 class Decoder(nn.Module):
+
     """This function build Decoder based on fully-connected units.
     Arguments:
         model_dict: each decoder layer's parameters, including input feature_dim, layer's neurons number, and specified activation fucntion.
         feature_dim: input feature dimension according to input frequency bins number.
         encoder act: activation function of each layers
     """
+
     def __init__(self, model_dict, padding="same", args=None, logger=None):
         super(Decoder, self).__init__()
         self.model_dict = model_dict
@@ -73,6 +80,7 @@ class Decoder(nn.Module):
         self.decoder_act = self.model_dict['decoder_act']
         self.decoder_layer = self.model_dict['decoder']
         self.layers = self._make_layers()
+
 
     def _make_layers(self):
        
@@ -88,6 +96,7 @@ class Decoder(nn.Module):
             in_planes = out_planes
 
         return nn.Sequential(*layers)
+
 
     def forward(self, x):
 
@@ -107,12 +116,12 @@ class autoencoder(nn.Module):
         super(autoencoder, self).__init__()
         if model_dict==None:
             self.model_dict = {
-        "frequency_bins":[0, 257],
-        "encoder":[1024, 512, 256, 32],
-        "decoder":[256, 512, 1024, 257],
-        "encoder_act":"relu",
-        "decoder_act":"relu",
-             }
+                "frequency_bins":[0, 257],
+                "encoder":[1024, 512, 256, 32],
+                "decoder":[256, 512, 1024, 257],
+                "encoder_act":"relu",
+                "decoder_act":"relu",
+                 }
         else:
             self.model_dict = model_dict
         
@@ -123,10 +132,12 @@ class autoencoder(nn.Module):
         
         self.feature_dim = self.model_dict['frequency_bins'][1] - self.model_dict['frequency_bins'][0]
         self.encoder = Encoder(self.model_dict)
-        #self.PC = PC()
         self.decoder = Decoder(self.model_dict)
 
+
     def forward(self, x):
+
         x = self.encoder(x)
         x = self.decoder(x)
+
         return x

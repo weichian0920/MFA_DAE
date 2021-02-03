@@ -86,7 +86,7 @@ def projfunc(s, k1, k2, nn):
 
     return v, usediters
  
-def nmfsc_clustering(data, k_range, sH=0.3, iter_num = 200, replica = 10):
+def nmfsc_clustering(data, k_range, sH=0.3, iter_num = 500, replica = 10):
 
     if(len(k_range)==1):
         replica = 1

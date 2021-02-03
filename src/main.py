@@ -52,7 +52,7 @@ parser.add_argument('--decreasing_lr', default='200,250', help='decreasing strat
 # MFA hyperparameters
 parser.add_argument('--source_num', type=str, default=3, help='number of separated sources')
 parser.add_argument('--clustering_alg', type=str, default='NMF', help='clustering algorithm for embedding space')
-parser.add_argument('--wienner_mask', type=bool, default=False, help='wienner time-frequency mask for output')
+parser.add_argument('--wienner_mask', type=bool, default=True, help='wienner time-frequency mask for output')
 
 args = parser.parse_args()
 args.cuda = torch.cuda.is_available()
@@ -131,6 +131,7 @@ if __name__ == "__main__":
 
     # data loader
     test_filelist = ["/home/lab001/weichian/MFA_DAE/src_pytorch/dataset/0_0.wav"]
+    test_filename = "0_0"
     outdir = "{0}/test_".format(args.logdir)
     train_loader = hl_dataloader(test_filelist, batch_size=args.batch_size, shuffle=True, num_workers=1, pin_memory=True, FFT_dict=FFT_dict, args=args)
     # train
@@ -149,4 +150,4 @@ if __name__ == "__main__":
     for test_file in test_filelist:
         # load test data
         lps, phase, mean, std = val_dataloader(test_file, FFT_dict)
-        mfa.source_separation(np.array(lps), np.array(phase), np.array(mean), np.array(std), filedir=outdir)
+        mfa.source_separation(np.array(lps), np.array(phase), np.array(mean), np.array(std), filedir=outdir, filename=test_filename)

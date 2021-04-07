@@ -134,7 +134,7 @@ if args.cuda:
 if __name__ == "__main__":
 
     # data loader
-    test_filelist = ["/home/lab001/weichian/MFA_DAE/src_pytorch/dataset/0_0.wav"]
+    test_filelist = ["/home/lab001/weichian/MFA_DAE/src/dataset/0_0.wav"]
     test_filename = "0_0"
     outdir = "{0}/test_".format(args.logdir)
     train_loader = hl_dataloader(test_filelist, batch_size=args.batch_size, shuffle=True, num_workers=1, pin_memory=True, FFT_dict=FFT_dict, args=args)

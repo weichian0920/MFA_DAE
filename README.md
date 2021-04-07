@@ -7,9 +7,9 @@ This is the implementation of [Blind Monaural Source Separation on Heart and Lun
 </p>
 ### Features
 * MFA tool
-  The tool for source separation by modulating latent code of autoencoder.
+The tool for source separation by modulating latent code of autoencoder.
 * Model
-  There are two type Autoencoders, including DAE_C and DAE_F.
+There are two type Autoencoders, including DAE_C and DAE_F.
 ### Requirements
 * librosa             0.8.0. 
 * torch               1.7.0

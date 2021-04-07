@@ -82,7 +82,8 @@ best_acc, old_file = 0, None
 per_save_epoch = 30
 t_begin = time.time()
 grad_scale = args.grad_scale
-# model dictionary
+
+# Default model dictionary
 DAE_C_dict = {
         "frequency_bins": [0, 300],
         "encoder": [32, 16, 8],
@@ -110,6 +111,9 @@ model_dict = {
     'DAE_C': DAE_C_dict,
     'DAE_F': DAE_F_dict
 }
+
+
+# Default fourier transform parameters
 FFT_dict = {
     'sr': 8000,
     'frequency_bins': [0, 300],
@@ -118,7 +122,7 @@ FFT_dict = {
     'Win_length': 2048,
     'normalize': True,
 }
-# declare model
+# declare model object
 net = Model[args.model_type](model_dict=model_dict[args.model_type], args=args, logger=logger).cuda()
 
 torch.manual_seed(args.seed)

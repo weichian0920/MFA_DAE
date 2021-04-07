@@ -13,8 +13,8 @@ This is the implementation of [Blind Monaural Source Separation on Heart and Lun
 * sklearn             0.0
 * numpy               1.19.5
 * scipy               1.6.0
-### Dataset
-
+### Example Data
+There is an example heart-lung sound 0_0.wav in ./src/dataset/ folder.
 ### How to run
 Scripts to reproduce the training and evaluation procedures discussed in the paper are located on scripts/.
 ### Citation

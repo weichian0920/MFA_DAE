@@ -8,7 +8,7 @@ This is the implementation of [Blind Monaural Source Separation on Heart and Lun
 
 ### Features
 * Model
-  * There are two type autoencoders, including DAE_C(convolutional module) and DAE_F(Fully-connected module).
+  * There are two type autoencoders, including DAE_C(convolutional module) and DAE_F(Fully-connected module). The default architectures are defined in model_dict.
 * MFA tool
   * The tool for source separation by modulating latent code of autoencoder.
 ### Requirements

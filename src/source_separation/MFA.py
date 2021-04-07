@@ -19,11 +19,21 @@ class MFA_source_separation(object):
     MFA analysis for unsupervised monoaural blind source separation.
         This function separate different sources by unsupervised manner depend on different source's periodicity properties.
     Arguments:
-        model: deep autoencoder for source separation.
-        source number: separated source number.
-        clustering _alg: clustering algorithm for MFA analysis.
-        wienner_mask: if True the output is mask by constructed ratio mask.
-        FFT_dict: fouier transform parameters.
+        model: 
+            deep autoencoder for source separation.
+        source number: int.
+            separated source quantity. type: int.
+        clustering_alg: string. 
+            "NMF" or "K_MEANS". clustering algorithm for MFA analysis. . type: str 
+        wienner_mask: bool. 
+            if True the output is mask by constructed ratio mask.
+        FFT_dict: dict {'sr': int,
+                        'frequency_bins': [int, int], #e.g.[0, 300]
+                        'FFTSize': int,
+                        'Hop_length': int,
+                        'Win_length': int,
+                        'normalize': bool,} 
+            fouier transform parameters.
     """
     def __init__(self, model=None, FFT_dict=None, args=None):
 
@@ -53,9 +63,12 @@ class MFA_source_separation(object):
         """
           This function use to modulate latent code.
           Arguments:
-            source_idx: source no. 
-            Encoded_img: latent coded matrix. Each dimension represnet as (encoding_shape, frame_num)
-            label: latent neuron label.
+            source_idx: int.
+                source quantity. 
+            Encoded_img: Tensor. 
+                latent coded matrix. Each dimension represnet as (encoding_shape, frame_num)
+            label: int 
+                latent neuron label.
         """
         frame_num = encoded_img.shape[0]
         encoding_shape = encoded_img.shape[1]
@@ -73,6 +86,11 @@ class MFA_source_separation(object):
         """
           Modulation Frequency Analysis of latent space.
           Note: Each dimension of input is (frame number, encoded neuron's number).
+          Arguments:
+              input: 2D Tensor.
+              source_num: int.
+                  source quantity.
+              
         """
         encoded_dim  = input.shape[1]
         # Period clustering
@@ -90,12 +108,18 @@ class MFA_source_separation(object):
         """
           main function for blind source separation.
           Argument:
-              input: log power spectrum (lps).
-              phase: phase is used to inverse lps to wavform.
-              mean: mean value of lps.
-              std: variance of lps.
-              filedir: directory for separated sources.
-              filename: separated sources name.
+              input: npArray. 
+                  log power spectrum (lps).
+              phase: npArray.
+                  phase is used to inverse lps to wavform.
+              mean: npArray.
+                  mean value of lps.
+              std: npArray. 
+                  variance of lps.
+              filedir: string. 
+                  directory for separated sources.
+              filename: string. 
+                  separated sources name.
         """
         feature_dim = self.FFT_dict['frequency_bins'][1] - self.FFT_dict['frequency_bins'][0]
 

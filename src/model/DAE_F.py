@@ -108,13 +108,24 @@ class Decoder(nn.Module):
 class autoencoder(nn.Module):
 
     """This function build Deep autoencoder based on encoder and decoder modules.
-    Arguments:
-        model_dict: each decoder layer's parameters, including input feature_dim, layer's neurons number, and specified activation fucntion.
+        Arguments:
+            model_dict: dictionary.
+                Each decoder layer's parameters, including input feature_dim, layer's neurons, and specified activation fucntion.
+                model_dict = {
+                     "frequency_bins":[int, int],
+                     "encoder":[int, ..., int], # neurons for each layers of encoder.
+                     "decoder":[int, ...,int], # neurons for each layers of decoder.
+                     "encoder_act": string, # activation function for encoder.
+                     "decoder_act": string, # activation function for decoder.
+                            }
+                args: argparse object.
+                logger: misc.logger.info object.
     """
 
     def __init__(self, model_dict=None, padding="same", args=None, logger=None):
         super(autoencoder, self).__init__()
-        if model_dict==None:
+        # Default architecture.
+        if model_dict==None: 
             self.model_dict = {
                 "frequency_bins":[0, 257],
                 "encoder":[1024, 512, 256, 32],

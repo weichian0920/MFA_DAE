@@ -50,7 +50,7 @@ parser.add_argument('--test_interval', type=int, default=1,  help='how many epoc
 parser.add_argument('--logdir', default='log/default/', help='folder to save to the log')
 parser.add_argument('--decreasing_lr', default='200,250', help='decreasing strategy')
 # MFA hyperparameters
-parser.add_argument('--source_num', type=str, default=3, help='number of separated sources')
+parser.add_argument('--source_num', type=int, default=3, help='number of separated sources')
 parser.add_argument('--clustering_alg', type=str, default='NMF', help='clustering algorithm for embedding space')
 parser.add_argument('--wienner_mask', type=bool, default=True, help='wienner time-frequency mask for output')
 

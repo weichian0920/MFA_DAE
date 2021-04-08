@@ -1,30 +1,46 @@
 # Blind Monaural Source Separation on Heart and Lung Sounds Based on Periodic-Coded Deep Autoencoder
 ### Introduction
-This is the implementation of [Blind Monaural Source Separation on Heart and Lung Sounds Based on Periodic-Coded Deep Autoencoder](https://ieeexplore.ieee.org/document/9167389).
+This is the implementation of [Blind Monaural Source Separation on Heart and Lung Sounds Based on Periodic-Coded Deep Autoencoder](https://ieeexplore.ieee.org/document/9167389) by pytorch.
 <p align="center">
   <img src="https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/6221020/9248684/9167389/tsao1-3016831-large.gif" width="400" height="300"/>
   <img src="https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/6221020/9248684/9167389/tsao4-3016831-large.gif" width="400" height="300"/>
 </p>
 
 ### Features
+* Feature extraction
+  *  
 * Model
-  * There are two type autoencoders, including DAE_C(convolutional module) and DAE_F(Fully-connected module). The default architectures are defined in model_dict.
+  * There are two type of autoencoders, including DAE_C(convolutional module) and DAE_F(Fully-connected module). The default architectures are defined in model_dict.
+  * Defining Models
+  >>> Models can be succinctly defined using dictionary by combining its variables, layers and scopes. Each of these elements is defined below.
+  >>> For example(DAE_F):
+  ```bash
+              model_dict = {
+                            "frequency_bins":[0, 257], # The range of input of log power spectrum frequency bin. e.g. the dimension of input is (batch, 257-0)
+                            "encoder":[128, ..., 16], # The length of list is the encoder layers, each item in list is neurons for each layers of encoder.
+                            "decoder":[16, ..., 257], # The length of list is the decoder layers, each item in list is neurons for each layers of decoder.
+                            "encoder_act": string, # activation function for encoder.
+                            "decoder_act": string, # activation function for decoder.
+                            }
+  ```
 * MFA tool
   * The tool for source separation by modulating latent code of autoencoder.
 ### Requirements
+MFA DAE is test using torch 1.7.0 with CUDA 10.1.
 * librosa             0.8.0. 
 * torch               1.7.0
 * torchvision         0.8.2
 * sklearn             0.0
 * numpy               1.19.5
 * scipy               1.6.0
-### Example Data
-There is an example heart-lung sound 0_0.wav in ./src/dataset/ folder.
+
 ### How to run
 Example script to reproduce the training and evaluation procedures discussed in the paper is located in ./scripts.
 ```bash
   $sh ./scripts/example_MFA_.sh
 ```
+### Example Data
+There is an example heart-lung sound 0_0.wav in ./src/dataset/ folder.
 ### Citation
 If you find the code helpful in your research, please do consider cite us!
 ```bash

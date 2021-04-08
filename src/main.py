@@ -40,7 +40,7 @@ parser.add_argument('--trainOrtest', type=str, default="train", help='status of 
 parser.add_argument('--optim', type=str, default="Adam", help='optimizer for training', choices=['RMSprop', 'SGD', 'Adam'])
 parser.add_argument('--batch_size', type=int, default=32, help='batch size for training (default: 32)')
 parser.add_argument('--lr', type=float, default=1e-4, help='initial learning rate for training (default: 1e-3)')
-parser.add_argument('--CosineAnnealingWarmRestarts', type=bool, default=False, help='initial learning rate for training (default: 1e-3)')
+parser.add_argument('--CosineAnnealingWarmRestarts', type=bool, default=False, help='optimizer scheduler for training')
 parser.add_argument('--epochs', type=int, default=50, help='number of epochs to train (default: 10)')
 parser.add_argument('--grad_scale', type=float, default=8, help='learning rate for wage delta calculation')
 parser.add_argument('--seed', type=int, default=117, help='random seed (default: 1)')
@@ -51,7 +51,7 @@ parser.add_argument('--logdir', default='log/default/', help='folder to save to 
 parser.add_argument('--decreasing_lr', default='200,250', help='decreasing strategy')
 # MFA hyperparameters
 parser.add_argument('--source_num', type=int, default=3, help='number of separated sources')
-parser.add_argument('--clustering_alg', type=str, default='NMF', help='clustering algorithm for embedding space')
+parser.add_argument('--clustering_alg', type=str, default='NMF', choices=['NMF', 'K_MEANS'], help='clustering algorithm for embedding space')
 parser.add_argument('--wienner_mask', type=bool, default=True, help='wienner time-frequency mask for output')
 
 args = parser.parse_args()

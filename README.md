@@ -58,6 +58,8 @@ Example script to reproduce the training and evaluation procedures discussed in 
 ```bash
   $sh ./scripts/example_MFA_.sh
 ```
+
+The results will produce in args.logdir.
 ### Example Data
 There is an example heart-lung sound 0_0.wav in ./src/dataset/ folder.
 ### Citation

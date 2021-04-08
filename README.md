@@ -22,6 +22,9 @@ This is the implementation of [Blind Monaural Source Separation on Heart and Lun
 There is an example heart-lung sound 0_0.wav in ./src/dataset/ folder.
 ### How to run
 Example script to reproduce the training and evaluation procedures discussed in the paper is located in ./scripts.
+```bash
+  $sh ./scripts/example_MFA_.sh
+```
 ### Citation
 If you find the code helpful in your research, please do consider cite us!
 ```bash

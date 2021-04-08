@@ -30,7 +30,7 @@ import scipy.io.wavfile as wav
 # parser#
 
 parser = argparse.ArgumentParser(description='PyTorch Source Separation')
-parser.add_argument('--model_type', type=str, default='DAE_C', help='model type')
+parser.add_argument('--model_type', type=str, default='DAE_C', help='model type', choices=['DAE_C', 'DAE_F'])
 parser.add_argument('--data_feature', type=str, default='lps', help='lps or wavform')
 
 parser.add_argument('--pretrained', default=False, help='load pretrained model or not')

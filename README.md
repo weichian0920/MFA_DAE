@@ -10,7 +10,7 @@ This is the implementation of [Blind Monaural Source Separation on Heart and Lun
 * Audio processing
   *  We adopt librosa 0.8.0 audio processing tool to process the audio.
   *  The Fourier transform variables can be defined using dictionary FFT_dict.
-    > For example(DAE_F):
+    > For example:
   ```bash
               FFT_dict = {
                             'sr': 8000,

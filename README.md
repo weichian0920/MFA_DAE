@@ -30,7 +30,7 @@ Fisrt we need to train an autoencoder, then use our MFA tool to analysis and mod
     
 *  Model
   * There are two type of autoencoders, including DAE_C(convolutional module) and DAE_F(Fully-connected module). The default architectures are defined in model_dict.
-  * Defining Models
+   Defining Models
    > Models can be succinctly defined using dictionary by combining its variables, layers and scopes. Each of these elements is defined below.
    > For example(DAE_F):
      ```bash
@@ -42,6 +42,7 @@ Fisrt we need to train an autoencoder, then use our MFA tool to analysis and mod
                             "decoder_act": string, # activation function for decoder.
                             }
       ```
+      
 * MFA tool
   * The tool for source separation by modulating latent code of autoencoder.
 ### Requirements

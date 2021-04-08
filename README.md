@@ -7,8 +7,20 @@ This is the implementation of [Blind Monaural Source Separation on Heart and Lun
 </p>
 
 ### Features
-* Feature extraction
-  *  
+* Audio processing
+  *  We adopt librosa 0.8.0 audio processing tool to process the audio.
+  *  The Fourier transform variables can be defined using dictionary FFT_dict.
+    > For example(DAE_F):
+  ```bash
+              FFT_dict = {
+                            'sr': 8000,
+                            'frequency_bins': [0, 300],
+                            'FFTSize': 2048,
+                            'Hop_length': 128,
+                            'Win_length': 2048,
+                            'normalize': True,
+                          }
+  ```
 * Model
   * There are two type of autoencoders, including DAE_C(convolutional module) and DAE_F(Fully-connected module). The default architectures are defined in model_dict.
   * Defining Models

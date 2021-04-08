@@ -41,8 +41,8 @@ Fisrt we need to train an autoencoder, then use our MFA tool to analysis and mod
                             "encoder_act": string, # activation function for encoder.
                             "decoder_act": string, # activation function for decoder.
                             }
-      ```
-      
+     ```   
+  
   * Training
    > The training process is define in train.py.
    Example to train autoencoder:

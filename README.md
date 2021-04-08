@@ -12,8 +12,8 @@ This is the implementation of [Blind Monaural Source Separation on Heart and Lun
 * Model
   * There are two type of autoencoders, including DAE_C(convolutional module) and DAE_F(Fully-connected module). The default architectures are defined in model_dict.
   * Defining Models
-  >>> Models can be succinctly defined using dictionary by combining its variables, layers and scopes. Each of these elements is defined below.
-  >>> For example(DAE_F):
+  > Models can be succinctly defined using dictionary by combining its variables, layers and scopes. Each of these elements is defined below.
+  > For example(DAE_F):
   ```bash
               model_dict = {
                             "frequency_bins":[0, 257], # The range of input of log power spectrum frequency bin. e.g. the dimension of input is (batch, 257-0)

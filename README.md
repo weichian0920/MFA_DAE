@@ -25,8 +25,8 @@ Fisrt we need to train an autoencoder, then use our MFA tool to analysis and mod
                           }
   ```
   * hl_dataloader
-  The dataloader construct by pytorch.
-  > user need provide a list of .wav data for dataloader.
+    The dataloader construct by pytorch.
+    > user need provide a list of .wav data for dataloader.
     
 *  Model
   * There are two type of autoencoders, including DAE_C(convolutional module) and DAE_F(Fully-connected module). The default architectures are defined in model_dict.

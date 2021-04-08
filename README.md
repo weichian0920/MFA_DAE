@@ -43,8 +43,18 @@ Fisrt we need to train an autoencoder, then use our MFA tool to analysis and mod
                             }
       ```
       
+  * Training
+   > The training process is define in train.py.
+   Example to train autoencoder:
+   ```bash
+   net = train(train_loader, net, args, logger)
+   ```
 * MFA tool
   * The tool for source separation by modulating latent code of autoencoder.
+  Example for declaring MFA object:
+  ```bash
+   mfa = MFA.MFA_source_separation(net, FFT_dict=FFT_dict, args=args)
+   ```
 ### Requirements
 MFA DAE is test using torch 1.7.0 with CUDA 10.1.
 * librosa             0.8.0. 
